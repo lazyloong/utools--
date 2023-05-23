@@ -1,0 +1,22 @@
+{
+    "main": "index.html",
+    "preload": "preload.js",
+    "logo": "logo.png",
+    "pluginSetting": {
+        "single": false
+    },
+    "features": [
+        {
+            "code": "hex",
+            "explain": "进制转换",
+            "cmds": [
+                "进制转换",
+                {
+                    "type": "regex",
+                    "match": "/^0x[0-9a-fA-F]+$/",
+                    "label": "进制转换"
+                }
+            ]
+        }
+    ]
+}
