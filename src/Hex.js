@@ -1,6 +1,7 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
 
 export default class BinaryConverter extends React.Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export default class BinaryConverter extends React.Component {
         this.subtractButtonRef = React.createRef();
         this.colors = ["#eeeeee", "#aaffe5", "#aaeeff"];
         this.state = {
+            copy: [false, ""],
             binary: Array(8).fill(0),
             decimal: 0,
             colors: Array(8).fill(0),
@@ -78,6 +80,42 @@ export default class BinaryConverter extends React.Component {
         this.setState({ binary, decimal });
     }
 
+    handleCopyBinary() {
+        let binaryStr = this.state.binary.join("");
+        navigator.clipboard.writeText(binaryStr).then(
+            () => {
+                this.setState({ copy: [true, "复制成功"] });
+            },
+            (err) => {
+                this.setState({ copy: [true, "无法复制"] });
+                console.error("无法复制", err);
+            }
+        );
+    }
+    handleClose() {
+        this.setState({ copy: [false, ""] });
+    }
+
+    /*
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        int[] dp = new int[m + 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = m; j >= arr[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - arr[i]] + arr[i]);
+            }
+        }
+        System.out.println(dp[m]);
+    }
+}
+*/
     render() {
         return (
             <div>
@@ -102,6 +140,7 @@ export default class BinaryConverter extends React.Component {
                             <Button ref={this.subtractButtonRef} onClick={() => this.handleBinaryOperation(0)}>
                                 -
                             </Button>
+                            <Button onClick={() => this.handleCopyBinary()}>复制</Button>
                         </div>
                     </div>
                     <TextField
@@ -133,6 +172,14 @@ export default class BinaryConverter extends React.Component {
                         label="32 进制"
                     />
                 </div>
+                <Snackbar
+                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
+                    autoHideDuration={750}
+                    open={this.state.copy[0]}
+                    message={this.state.copy[1]}
+                    onClose={() => this.handleClose()}
+                    onClick={() => this.handleClose()}
+                />
             </div>
         );
     }

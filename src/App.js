@@ -1,5 +1,5 @@
 import React from "react";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import BinaryConverter from "./Hex";
 
 window.platform = {
@@ -9,7 +9,7 @@ window.platform = {
 };
 
 const themeDic = {
-    light: createMuiTheme({
+    light: createTheme({
         palette: {
             type: "light",
         },
@@ -19,7 +19,7 @@ const themeDic = {
             },
         },
     }),
-    dark: createMuiTheme({
+    dark: createTheme({
         palette: {
             type: "dark",
             primary: {

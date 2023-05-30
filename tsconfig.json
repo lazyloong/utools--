@@ -1,5 +1,7 @@
 {
     "compilerOptions": {
         "types": ["utools-api-types"]
-    }
+    },
+    "include": ["**/*"],
+    "exclude": ["node_modules", "dist"]
 }
